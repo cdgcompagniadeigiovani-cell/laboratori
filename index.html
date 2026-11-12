@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Laboratori teatrali e creativi a San Giovanni La Punta | Compagnia dei Giovani</title>
+<meta name="description" content="Koro Pop, Arte e movimento, Dizione, Cartapesta, teatro e Circolo Pickwick al Casale di San Giovanni La Punta. Prova gratis all'Open Day, dal 26 al 30 novembre.">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Laboratori teatrali e creativi a San Giovanni La Punta">
+<meta property="og:description" content="Canto, ballo, dizione, cartapesta e teatro al Casale. Prova gratis all'Open Day, dal 26 al 30 novembre.">
+<meta property="og:url" content="https://cdgcompagniadeigiovani-cell.github.io/laboratori/">
+<meta property="og:image" content="https://cdgcompagniadeigiovani-cell.github.io/laboratori/img/anteprima.jpg">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1350">
+
+<!-- Pixel e Clarity partono solo sulla pagina pubblicata: le prove in locale non sporcano i dati -->
+<script>
+  if (/github\.io$/.test(location.hostname)) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1360688069260849');
+    fbq('track', 'PageView');
+
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x9mnosrh0o");
+  }
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/cast.jpg">
+
+<style>
+/* ═══════════════ TOKEN: la tavolozza del carosello Controluce ═══════════════ */
+:root{
+  --viola:#3B1E8C;
+  --acido:#C6F432;
+  --rosa:#FF48B0;
+  --blu:#0078BF;
+  --carta:#F6F4EF;
+  --ink:#0A1A4F;
+  --wa:#25D366;
+  --font:'Instrument Sans',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --col:620px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--carta);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rosa);outline-offset:2px;border-radius:4px}
+.col{max-width:var(--col);margin:0 auto;padding:0 16px}
+/* il colore pieno sta nelle fasce (testata, verbi dei corsi, quote); quello che si legge e si tocca sta sul chiaro */
+/* etichette strette in maiuscolo: lo stesso font, asse della larghezza al 75% */
+.giorno h3,.pannello .offerta,.corso dt,.sconti h3{font-stretch:75%;font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+
+/* ═══════════════ TESTATA (riga in alto e logo, come sulle schede) ═══════════════ */
+.testata{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;padding-bottom:10px}
+.testata p{font-weight:650;font-size:15px;line-height:1.2;color:var(--carta)}
+.testata img{width:40px;height:40px;flex:0 0 auto}
+/* chi parla (grilling del 10 nov): il nome della compagnia e gli anni, sotto il paese */
+/* 11 nov, Pietro: cosa facciamo nel verde della tavolozza; nelle pagine dei corsi il colore della risposta, che si legge su quel fondo */
+.testata .tipo{color:var(--acido)}
+.hero-corso .testata .tipo{color:var(--risp)}
+.testata p small{display:block;font-size:13px;font-weight:600;margin-top:3px;opacity:.85}
+
+/* ═══════════════ HERO SENZA CORSO: una fascia con la foto dei ringraziamenti e il biglietto ═══════════════ */
+.hero-tutti{background:var(--viola);color:var(--carta)}
+.cast{position:relative}
+.cast img{width:100%;height:auto;max-width:var(--col);margin:0 auto;aspect-ratio:900/439;object-fit:cover}
+.biglietto{
+  background:var(--big,var(--acido));color:var(--viola);
+  padding:10px 16px 11px;transform:rotate(-3deg);transform-origin:0 100%;display:inline-block;text-decoration:none
+}
+.biglietto b{display:block;font-size:23px;line-height:1.08;font-weight:700;letter-spacing:-.02em}
+.biglietto > span{display:block;font-size:20px;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.biglietto small{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-top:2px}
+/* sulla foto il biglietto cresce con la foto (u = 1% della sua larghezza), così su ogni telefono cade nello stesso punto:
+   l'angolo destro appena sotto il mento di Susanna, la donna coi capelli ricci (Pietro, 5 nov) */
+.cast{--u:min(1vw,6.2px)}
+.cast .biglietto{position:absolute;left:calc(4.1*var(--u));top:61.2%;padding:calc(2.56*var(--u)) calc(4.1*var(--u)) calc(2.82*var(--u))}
+.cast .biglietto b{font-size:calc(5.9*var(--u))}
+.cast .biglietto > span{font-size:calc(5.13*var(--u))}
+.cast .biglietto small{font-size:calc(3.33*var(--u));margin-top:calc(.5*var(--u))}
+@media(min-width:652px){.cast .biglietto{left:calc(50% - var(--col)/2 + 4.1*var(--u))}}
+
+/* ═══════════════ PROGRAMMA DA SPUNTARE ═══════════════ */
+.programma{padding:46px 0 30px}
+.programma h2{font-size:clamp(34px,10vw,48px);line-height:1;font-weight:700;letter-spacing:-.035em;color:var(--viola)}
+/* «giudizio lascialo» a pennarello rosa sulla metà bassa delle parole, senza riquadro per non fare un secondo cartello (scelta C, 12 nov) */
+.ev{background:linear-gradient(transparent 52%,rgba(255,72,176,.6) 52%,rgba(255,72,176,.6) 90%,transparent 90%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.programma .guida{font-size:15.5px;margin:8px 0 2px;color:rgba(10,26,79,.82)}
+.giorno{margin-top:20px}
+.giorno h3{font-size:20px;line-height:1.1;color:var(--viola);padding-bottom:5px;border-bottom:2px solid var(--viola);margin-bottom:2px}
+
+.prova{
+  position:relative;display:flex;align-items:center;gap:12px;
+  padding:11px 12px;margin-top:8px;border-radius:8px;
+  background:transparent;border:2px solid rgba(10,26,79,.28);color:var(--ink);
+  cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;
+  transition:background .12s,border-color .12s
+}
+.prova input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.spunta{flex:0 0 auto;width:28px;height:28px;border-radius:6px;border:2.5px solid var(--ink);background:#fff;position:relative}
+.prova.on{background:var(--acido);border-color:var(--ink)}
+.prova.on .spunta{background:var(--ink)}
+.prova.on .spunta::after{content:"";position:absolute;left:8px;top:3px;width:7px;height:13px;border:solid var(--acido);border-width:0 3px 3px 0;transform:rotate(45deg)}
+.prova:has(input:focus-visible){outline:3px solid var(--rosa);outline-offset:2px}
+.ora{flex:0 0 auto;font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;min-width:50px}
+.cosa{display:block;line-height:1.2;min-width:0}
+.cosa b{font-size:17.5px;font-weight:700}
+.cosa small{display:block;font-size:13px;color:rgba(10,26,79,.72);margin-top:2px}
+.nuovo{display:inline-block;font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--rosa);color:var(--ink);padding:2px 6px;border-radius:3px;vertical-align:3px;margin-left:4px}
+
+/* ═══════════════ PULSANTI WHATSAPP ═══════════════ */
+.btn-wa{
+  display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  background:var(--wa);color:var(--ink);text-decoration:none;
+  font-weight:700;font-size:18px;line-height:1.15;letter-spacing:-.01em;
+  padding:16px 18px;border-radius:10px;margin-top:18px;
+  box-shadow:0 5px 0 var(--ink);transition:transform .1s,box-shadow .1s,background .15s
+}
+.btn-wa:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn-wa .ico{width:24px;height:24px;fill:var(--ink);flex:0 0 auto}
+.btn-wa.vuoto{background:transparent;border:2px dashed rgba(10,26,79,.4);box-shadow:none;color:rgba(10,26,79,.75);font-size:16px}
+.btn-wa.vuoto .ico{display:none}
+.firma{font-size:15.5px;text-align:center;margin-top:14px;color:var(--ink)}
+.firma b{color:var(--ink)}
+.lampeggia{animation:lampo .7s ease 2}
+@keyframes lampo{50%{box-shadow:0 0 0 4px var(--rosa)}}
+
+/* ═══════════════ HERO DI UN CORSO (?corso=) ═══════════════ */
+.hero-corso{background:var(--fondo);color:var(--dom);padding-bottom:22px}
+.hero-corso .testata p{color:var(--dom)}
+.hero-corso h1{font-size:clamp(33px,9.4vw,46px);line-height:1.03;font-weight:700;letter-spacing:-.025em;margin-top:6px;color:var(--dom)}
+.hero-corso .h1-verbo{font-size:clamp(70px,22vw,110px);line-height:.9;letter-spacing:-.045em;color:var(--verbo)}
+.hero-corso .risposta{font-size:19px;line-height:1.2;font-weight:700;margin-top:8px;color:var(--risp)}
+.affiancati{display:flex;gap:14px;align-items:flex-start;margin-top:18px}
+.affiancati .biglietto{flex:1 1 auto;min-width:0;transform:rotate(-2deg);transform-origin:0 0;margin-top:6px;padding:12px 14px 13px;color:var(--ink)}
+.affiancati .biglietto b{font-size:25px}
+.affiancati .biglietto .con{font-size:14px;font-weight:600;margin-top:1px}
+.affiancati .biglietto hr{border:0;height:2px;background:var(--ink);margin:8px 0 7px}
+.affiancati .biglietto ul{list-style:none;font-size:14px;line-height:1.3;font-weight:600}
+.affiancati .biglietto li+li{margin-top:3px}
+.affiancati .biglietto .sconto{display:inline;font-size:inherit;line-height:inherit;color:var(--viola);font-weight:700}
+.nb{white-space:nowrap}
+.pannello{background:var(--carta);color:var(--ink);border-radius:10px;padding:16px 14px 18px;margin-top:22px}
+.pannello .offerta{font-size:17px;color:var(--viola)}
+.pannello .regola{font-size:20px;line-height:1.15;font-weight:700;letter-spacing:-.015em;margin:4px 0 2px;color:var(--ink)}
+.pannello .anche{font-size:14px;font-weight:650;margin:20px 0 0;color:rgba(10,26,79,.8)}
+
+/* il video verticale dell'insegnante: per ora un segnaposto 9:16 */
+.video916{
+  flex:0 0 auto;width:34%;max-width:150px;aspect-ratio:9/16;border-radius:8px;overflow:hidden;position:relative;
+  background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(10,26,79,.35)),var(--fondo,var(--viola));
+  border:2px solid rgba(246,244,239,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  color:var(--carta);text-align:center;padding:10px
+}
+.video916 i{width:42px;height:42px;border-radius:50%;background:rgba(10,26,79,.55);position:relative}
+.video916 i::after{content:"";position:absolute;left:16px;top:12px;border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent var(--carta)}
+.video916 span{font-size:12px;font-weight:650;line-height:1.2}
+.video916.con-video{background-size:cover;background-position:center;border-color:var(--carta);cursor:pointer;font:inherit;justify-content:flex-end;padding-bottom:12px}
+.video916.con-video i{display:inline-block;position:static;width:0;height:0;border-radius:0;background:none;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent var(--carta);margin-right:6px;vertical-align:0}
+.video916.con-video i::after{display:none}
+.video916.con-video span{background:var(--ink);color:var(--carta);padding:5px 9px;border-radius:4px;font-size:12.5px;display:inline-flex;align-items:center}
+/* il video a schermo intero, col pulsante per prenotare la prova di quel corso */
+.schermo{position:fixed;inset:0;z-index:80;background:#000;display:flex;flex-direction:column}
+.schermo[hidden]{display:none}
+.schermo video{flex:1 1 auto;min-height:0;width:100%;object-fit:contain;background:#000}
+.schermo .chiudi{position:absolute;top:calc(10px + env(safe-area-inset-top));right:10px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(246,244,239,.92);color:var(--ink);font:700 26px/44px var(--font);cursor:pointer}
+.schermo .btn-wa{margin:10px 12px calc(12px + env(safe-area-inset-bottom));width:auto}
+
+/* ═══════════════ I LABORATORI: una fascia di colore per corso, come le schede ═══════════════ */
+.sezione{padding:48px 0}
+.sezione > .col > h2{font-size:clamp(34px,10vw,48px);line-height:1;font-weight:700;letter-spacing:-.035em;color:var(--viola)}
+.sezione > .col > .intro{font-size:16.5px;margin-top:12px;max-width:46ch;color:rgba(10,26,79,.85)}
+
+.corso{margin-top:34px}
+.corso__testa{background:var(--fondo);color:var(--dom);padding-top:20px;overflow:hidden}
+.corso__testa p{font-size:21px;line-height:1.12;font-weight:700;letter-spacing:-.015em;max-width:15em}
+.corso__testa b{display:block;font-size:clamp(78px,24vw,130px);line-height:.8;font-weight:700;letter-spacing:-.045em;color:var(--verbo);margin-top:12px;transform:translateY(.12em)}
+.corso__corpo{padding-top:22px;padding-bottom:6px}
+.corso__nome{display:flex;gap:14px;align-items:flex-start}
+.corso__nome .video916{width:47%;max-width:220px;--fondo:var(--fondo-video)}
+.corso__nome > div{min-width:0}
+.corso__nome h3{font-size:27px;line-height:1.05;font-weight:700;letter-spacing:-.025em}
+.corso__nome .con{font-size:14.5px;font-weight:600;margin-top:3px;color:rgba(10,26,79,.75)}
+.corso dl{margin-top:12px;font-size:14.5px;line-height:1.3}
+.corso dt{font-size:13px;color:var(--viola);margin-top:9px}
+.corso dd{font-weight:600}
+.corso__testo{font-size:16px;margin-top:16px}
+.corso__chi+.corso__chi{margin-top:8px}
+.corso__chi{font-size:14.5px;margin-top:12px;padding-left:12px;border-left:3px solid var(--fondo);color:rgba(10,26,79,.82)}
+.corso .prova{margin-top:16px}
+
+/* ═══════════════ QUOTE: fascia viola ═══════════════ */
+.quote{background:var(--viola);color:var(--carta);margin-top:40px}
+.sezione.quote .sezione-titolo{color:var(--carta)}
+.prezzi{margin-top:20px;display:grid;gap:10px}
+.prezzo{border:2px solid rgba(246,244,239,.3);border-radius:8px;padding:14px 16px;display:flex;gap:14px;align-items:baseline}
+.prezzo .num{font-size:36px;font-weight:700;letter-spacing:-.03em;color:var(--acido);flex:0 0 auto;min-width:3.4ch}
+.prezzo p{font-size:15px;line-height:1.35}
+.prezzo p b{display:block;font-size:16px}
+.quote .nota{font-size:15.5px;margin:18px 0 0 20px;max-width:48ch}
+.quote .nota li{margin-top:8px;padding-left:2px}
+.quote .nota li::marker{color:var(--acido)}
+.quote .nota strong{color:var(--acido)}
+.sconti{margin-top:22px;background:var(--acido);color:var(--ink);border-radius:8px;padding:16px}
+.sconti h3{font-size:17px;color:var(--viola)}
+.sconti ul{list-style:none;margin-top:8px}
+.sconti li{display:flex;gap:12px;align-items:baseline;font-size:15.5px;font-weight:600;padding:5px 0}
+.sconti li b{font-size:22px;letter-spacing:-.02em;min-width:3.2ch;color:var(--viola)}
+.sconti .es{font-size:14px;margin-top:8px;color:rgba(10,26,79,.8)}
+.sconti .scade{display:none}
+.con-sconto .sconti .scade{display:flex}
+
+/* ═══════════════ DOMANDE FREQUENTI ═══════════════ */
+.faq details{border-bottom:2px solid rgba(10,26,79,.14);padding:15px 0}
+.faq summary{font-size:17.5px;font-weight:700;line-height:1.25;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:26px;line-height:.8;color:var(--rosa);transition:transform .2s;flex:0 0 auto}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin-top:8px;font-size:16px;color:rgba(10,26,79,.85)}
+
+/* ═══════════════ IL CASALE ═══════════════ */
+.casale img{border-radius:8px;margin-top:20px;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.casale .indirizzo{font-size:17px;font-weight:650;margin-top:14px}
+/* il pulsante al centro (Pietro, 11 nov) */
+.btn-mappa{display:flex;width:fit-content;align-items:center;gap:8px;margin:14px auto 0;background:var(--ink);color:var(--carta);text-decoration:none;font-weight:700;font-size:16px;padding:13px 18px;border-radius:8px}
+.btn-mappa svg{width:20px;height:20px;fill:var(--acido)}
+
+footer{background:var(--ink);color:rgba(246,244,239,.7);font-size:13.5px;line-height:1.7;text-align:center;padding:28px 0 120px}
+footer a{color:var(--acido);text-decoration:none}
+
+/* ═══════════════ BARRA FISSA IN BASSO ═══════════════ */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 12px calc(10px + env(safe-area-inset-bottom));pointer-events:none;transition:transform .2s ease,opacity .2s ease}
+.barra .btn-wa{max-width:calc(var(--col) - 32px);margin:0 auto;pointer-events:auto;box-shadow:0 5px 0 var(--ink),0 10px 28px rgba(10,26,79,.35)}
+.barra.via{transform:translateY(120%);opacity:0}
+
+.nascosto{display:none !important}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ico-wa" viewBox="0 0 24 24">
+    <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/>
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 2.13.56 4.12 1.53 5.85L.06 23.5a.5.5 0 0 0 .61.61l5.65-1.47A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12S18.63 0 12 0zm0 22a9.93 9.93 0 0 1-5.09-1.39l-.36-.22-3.79.99.99-3.79-.22-.37A9.93 9.93 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10z"/>
+  </symbol>
+</svg>
+
+<!-- la prima schermata la scrive lo script: senza ?corso= la foto col biglietto e subito il programma, con ?corso= quel corso -->
+<header id="hero"></header>
+<section id="programma" class="programma nascosto"><div class="col" id="programma-dentro"></div></section>
+
+<main>
+
+<section class="sezione" id="laboratori">
+  <div class="col">
+    <h2>Non serve esperienza!</h2>
+  </div>
+  <div id="schede"></div>
+</section>
+
+<section class="sezione quote" id="quote">
+  <div class="col">
+    <h2 class="sezione-titolo">Quanto costa</h2>
+    <div class="prezzi">
+      <div class="prezzo"><span class="num">300 €</span><p><b>Koro Pop, Arte e movimento, Teatro ragazzi, Teatro adulti</b>20 incontri e lo spettacolo finale</p></div>
+      <div class="prezzo"><span class="num">300 €</span><p><b>Dizione</b>10 incontri in gruppi di 3-4 persone</p></div>
+      <div class="prezzo"><span class="num">215 €</span><p><b>Cartapesta</b>10 incontri, materiali compresi</p></div>
+      <div class="prezzo"><span class="num">180 €</span><p><b>Circolo Pickwick</b>10 incontri e la restituzione finale</p></div>
+    </div>
+    <ul class="nota">
+      <li>La quota comprende la tessera dell'associazione e l'assicurazione.</li>
+      <li><strong>Si paga in due rate: il 50% all'iscrizione, il 50% a metà percorso.</strong></li>
+    </ul>
+    <div class="sconti">
+      <h3>Gli sconti</h3>
+      <!-- ordine 10, 10, 30 (Pietro, 11 nov): l'esempio qui sotto parla del 30% e gli sta subito sotto -->
+      <ul>
+        <li class="scade"><b>−10%</b><span>se ti iscrivi entro l'1 dicembre</span></li>
+        <li><b>−10%</b><span>se si iscrive anche un familiare</span></li>
+        <li><b>−30%</b><span>sul secondo laboratorio che fai</span></li>
+      </ul>
+      <p class="es">Koro Pop e Teatro adulti, per esempio: il teatro costa 165 € invece di 300 €, perché la tessera si paga una volta sola.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sezione faq" id="domande">
+  <div class="col">
+    <h2>Domande frequenti</h2>
+    <details>
+      <summary>Non ho mai cantato, ballato o recitato davanti a qualcuno. Posso venire?</summary>
+      <p>Sì. Nessun provino: si comincia tutti dalla prima lezione.</p>
+    </details>
+    <!-- a giugno era la domanda più aperta insieme a «che giorno» (analisi della campagna estiva); rate 50/50 (Pietro, 13 nov; prima 70/30) -->
+    <details>
+      <summary>Posso pagare a rate?</summary>
+      <p>Sì, in due rate: il 50% all'iscrizione e il 50% a metà percorso. Su 300 € sono 150 € subito e 150 € dopo.</p>
+    </details>
+    <details>
+      <summary>Posso provare più di un laboratorio?</summary>
+      <p>Sì: all'Open Day le prove sono a orari diversi. Spunta quelle che vuoi e le prenoti con un messaggio solo.</p>
+    </details>
+    <details>
+      <summary>E se all'Open Day non posso?</summary>
+      <p>Provi gratis nella prima settimana dei corsi, a dicembre. Scrivici su WhatsApp.</p>
+    </details>
+    <details>
+      <summary>In che giorno si fa il laboratorio?</summary>
+      <p>Dove il giorno non c'è ancora, lo fissiamo con chi si iscrive.</p>
+    </details>
+  </div>
+</section>
+
+<section class="sezione casale" id="casale">
+  <div class="col">
+    <h2>Il Casale</h2>
+    <p class="intro">Facciamo teatro a San Giovanni La Punta dal 2006, e questa è casa nostra.</p>
+    <img src="img/casale.jpg" alt="La sala del Casale, sede della Compagnia dei Giovani" loading="lazy" width="900" height="600">
+    <p class="indirizzo">Via Pier Luigi Deodato 120, San Giovanni La Punta (Trappeto)</p>
+    <a class="btn-mappa" href="https://www.google.com/maps/dir/?api=1&destination=Compagnia+dei+Giovani+Via+Pier+Luigi+Deodato+120+San+Giovanni+La+Punta+CT" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+      Portami al Casale
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="col">
+    CDG Compagnia dei Giovani APS-ETS<br>
+    Via Pier Luigi Deodato 120, San Giovanni La Punta (CT)<br>
+    WhatsApp <a href="https://wa.me/393501047318">+39 350 104 7318</a> · <a href="https://www.instagram.com/compagnia_dei_giovani/" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</footer>
+
+<div class="schermo" id="schermo" hidden>
+  <video playsinline controls preload="none"></video>
+  <button type="button" class="chiudi" aria-label="Chiudi il video">×</button>
+  <a class="btn-wa" target="_blank" rel="noopener"></a>
+</div>
+
+<!-- barra fissa: con delle prove spuntate prenota quelle, senza chiede aiuto a scegliere -->
+<div class="barra via" id="barra">
+  <a class="btn-wa" id="barra-btn" href="https://wa.me/393501047318" target="_blank" rel="noopener"><svg class="ico"><use href="#ico-wa"/></svg><span>Scrivici su WhatsApp</span></a>
+</div>
+
+<script>
+/* ═══════════════════════ MODIFICA QUI ═══════════════════════
+   Giorni e orari dell'Open Day confermati da Pietro il 10 nov (le fini di Teatro adulti e Pickwick
+   le ho messe a un'ora e mezza, come le altre prove). Si cambiano solo in "openday" dei corsi. */
+
+// le bio di Pietro e Salvo (11 nov): solo fatti, col nome davanti perché nel teatro e nel Pickwick stanno una sotto l'altra
+var BIO = {
+  pietro: "<b>Pietro</b>, regista e pedagogista, da dieci anni conduce e affianca laboratori teatrali. Si è formato con la Compagnia Mauri Sturno, Claudia Castellucci, Michele Monetta e Marcello Sambati, e parte sempre dal corpo: ha studiato il metodo Feldenkrais e la biomeccanica teatrale.",
+  salvo: "<b>Salvo</b>, diplomato al Teatro Stabile di Catania, ha recitato con Turi Ferro, Mariella Lo Giudice, Ileana Ghione e Judith Malina. Nel 2006 ha fondato la Compagnia dei Giovani.",
+  // Manuel (12 nov): dal suo vocale a Pietro dell'11 nov, scelte di Pietro su cosa tenere
+  manuel: "<b>Manuel</b> si è formato alla scuola Let's Dance di Francesco Sorrentino, già primo ballerino all'Opera di Roma, e ha perfezionato il contemporaneo con Claudia Bertuccelli, che è anche arteterapeuta. Da quando insegna ha condotto gruppi di allievi che non avevano mai ballato."
+};
+
+var CONFIG = {
+  numero: "393501047318",
+  numeroSalvo: "393476488260",  // non più usato dal 12 nov: anche ?da=salvo apre la chat della compagnia
+  // la frase che si dice davvero all'inizio di ogni prova (grilling del 10 nov): titolo della prima schermata
+  // e riquadro della prova. Parole esatte da confermare con Pietro
+  regola: "Il <span class=\"ev\">giudizio lascialo</span> dietro la porta",
+  // dall'1 dicembre la prova gratuita passa alla prima settimana dei corsi (la Dizione fa l'Open Day lunedì 30)
+  fineOpenDay: "2026-12-01",
+  // il 10% di sconto vale per chi si iscrive entro l'1 dicembre (Pietro, 10 nov)
+  fineSconto: "2026-12-02",
+  // Open Day dal 26 al 30 novembre (Pietro, 10 nov)
+  giorni: {
+    gio: { nome: "Giovedì 26 novembre", corto: "giovedì 26 novembre" },
+    sab: { nome: "Sabato 28 novembre",  corto: "sabato 28 novembre" },
+    dom: { nome: "Domenica 29 novembre", corto: "domenica 29 novembre" },
+    lun: { nome: "Lunedì 30 novembre", corto: "lunedì 30 novembre" }
+  },
+  // riga: il sottotitolo nel programma da spuntare, con l'età davanti per bambini e ragazzi. Dal 10 nov il gesto della prova;
+  // dall'11 nov teatro e Pickwick dicono il punto dolente preso dai testi di Pietro, Koro Pop la frase di Pietro
+  // nuovo: true = uno dei quattro corsi della campagna (manda l'evento Contact); novita: true = etichetta «Novità»
+  corsi: [
+    { id: "coro-pop", nome: "Koro Pop", con: "Susanna Recupero", nuovo: true, novita: true,
+      verbo: "canto", domanda: "Canti solo in macchina?", risposta: "Novità a Catania: un coro pop senza audizioni",
+      eta: "Ragazzi e adulti", quando: "Una sera a settimana, 19:30-21:30", incontri: "20 incontri e lo spettacolo finale", quota: 300,
+      testo: "Canzoni pop cantate in coro, e per entrare nessun provino. (Se finora ti ha sentito solo il cruscotto, va bene lo stesso.)",
+      chi: "Soprano, diplomata in canto lirico al Bellini di Catania, ma ha cominciato dal pop: ha cantato la sigla di Italian Performer Cup su Raidue e con i Desert Crush è arrivata alle finali di Sanremo Rock.",
+      // il video si apre a schermo intero; Susanna v2 (9 nov): coro 2 rimontato, 38,4 s, cartello finale come quello di Salvo; la v1 (suo video tagliato a 20 s) resta in video/ e img/, non usata
+      // v3 (12 nov): identica alla v2, cambia solo la data del cartello, «giovedì 26 novembre»
+      video: "video/susanna-coro-v3.mp4", poster: "img/susanna-poster-v2.jpg",
+      riga: "Sciogli il corpo, poi canta subito insieme al gruppo",
+      openday: { giorno: "gio", ora: "19:30", fine: "21:00" },
+      colori: { fondo: "blu", dom: "carta", risp: "acido", verbo: "ink" } },
+
+    { id: "arte-e-movimento", nome: "Arte e movimento", con: "Manuel Piano e Chiara Cortese", nuovo: true,
+      verbo: "ballo", domanda: "Balli solo quando nessuno ti guarda?", risposta: "Anche se non hai mai ballato",
+      eta: "Ragazzi e adulti", quando: "Una volta a settimana, giorno e orario da fissare", incontri: "20 incontri e lo spettacolo finale", quota: 300,
+      testo: "Movimento in gruppo, per chi non ha mai ballato davanti a qualcuno. Si parte da come ti muovi già.",
+      chi: BIO.manuel,
+      // manuel-v12 in versione leggera (540x960, 4,7 MB, 35,1 s), 8 nov; la v11 resta in video/manuel-arte-movimento.mp4, non usata
+      // v13 (12 nov): identica alla v12, cambia solo la data del cartello, «sabato 28 novembre»
+      video: "video/manuel-arte-movimento-v13.mp4", poster: "img/manuel-poster-v12.jpg",
+      riga: "Ti muovi su una canzone: niente giusto, niente sbagliato",
+      openday: { giorno: "sab", ora: "18:00", fine: "19:30" },
+      colori: { fondo: "rosa", dom: "viola", risp: "ink", verbo: "viola" } },
+
+    { id: "dizione", nome: "Dizione", con: "Salvo Valentino", nuovo: true,
+      verbo: "parlo", domanda: "Al lavoro ti tradisce la cadenza?", risposta: "Il siciliano te lo tieni",
+      // età: Pietro, 12 nov (prima «dai 25 anni»)
+      eta: "Adulti, dai 20 anni", quando: "Il giorno lo fissiamo con il gruppo", incontri: "10 incontri in gruppi di 3-4 persone", quota: 300,
+      testo: "Pronuncia corretta dell'italiano, per togliere la cadenza quando serve: in riunione o a un colloquio. Il dialetto resta tuo.",
+      chi: BIO.salvo,
+      // salvo-v2 in versione leggera (540x960, 3,5 MB, 22,9 s), 8 nov; poster scelto da Pietro
+      // v3 (12 nov): identica alla v2, cambia solo la data del cartello, «lunedì 30 novembre»
+      video: "video/salvo-dizione-v3.mp4", poster: "img/salvo-poster.jpg",
+      // gesto scelto da Pietro il 12 nov fra quattro proposte: le vocali aperte e chiuse
+      riga: "Senti la differenza fra pèsca e pésca",
+      openday: { giorno: "lun", ora: "19:30", fine: "21:00" },   // Pietro, 10 nov
+      colori: { fondo: "blu", dom: "carta", risp: "acido", verbo: "ink" } },
+
+    // solo bambini e ragazzi (Pietro, 5 nov): niente cucito e niente genitori. Domanda per i genitori sull'incanalare la creatività
+    // «Novità» rimessa l'11 nov (Pietro). Una domenica al mese, diversa da quella del Pickwick (Pietro, 11 nov)
+    { id: "cartapesta", nome: "Cartapesta", con: "Serena Siclari", nuovo: true, novita: true,
+      verbo: "creo", domanda: "Ha mille idee e non ne finisce nessuna?", risposta: "Qui le porta fino in fondo: diventano oggetti di scena, dagli 8 anni",
+      eta: "Bambini e ragazzi, dagli 8 anni", quando: "Una domenica al mese, 16:30-18:30", incontri: "10 incontri", quota: 215,
+      testo: "Giornali, colla e colori: dieci incontri per costruire oggetti di scena veri, che poi salgono sul palco del Circolo Pickwick.",
+      chi: "Costumista del film L'insabbiato di Rosario Petix e sarta dal 2011. Ha già insegnato ai bambini a costruire costumi e oggetti di scena, per il nostro Oltre il giardino.",
+      // serena-v8 in versione leggera (540x960, 4 MB, 26,2 s): base C con i livelli HyperFrames, 7 nov
+      // v9 (12 nov): identica alla v8, cambia solo la data del cartello, «domenica 29 novembre»
+      video: "video/serena-cartapesta-v9.mp4", poster: "img/serena-poster.jpg",
+      riga: "Dagli 8 anni: torna a casa con un oggetto fatto con le sue mani",
+      openday: { giorno: "dom", ora: "18:00", fine: "19:30" },
+      colori: { fondo: "rosa", dom: "viola", risp: "ink", verbo: "viola" } },
+
+    { id: "teatro-ragazzi", nome: "Teatro ragazzi", con: "Pietro Cucuzza e Salvo Valentino", nuovo: false,
+      // domanda al genitore: il figlio che esce dal guscio (grilling del 10 nov), con le parole del questionario dei ragazzi di Studio 54
+      verbo: "recito", domanda: "A casa parla, ma in gruppo sparisce?",
+      eta: "11-17 anni", quando: "Il sabato, 16:00-18:30", incontri: "20 incontri e lo spettacolo finale", quota: 300,
+      testo: "Qui esce dal guscio: si gioca in gruppo, e alla fine sale su un palco vero, con luci e pubblico.",
+      // riga dal testo di Pietro sul teatro ragazzi (11 nov): il figlio timido che trova il suo posto
+      riga: "11-17 anni: anche chi preferisce osservare trova il suo posto",
+      chi: [BIO.pietro, BIO.salvo],
+      // video di Pietro v3 (10 nov): 540x960, 60 fps, 46,7 s, 4,9 MB; parole chiave sui sottotitoli, niente testo in alto; poster A, sorriso pulito
+      video: "video/teatro-ragazzi-v3.mp4", poster: "img/teatro-ragazzi-poster.jpg",
+      openday: { giorno: "sab", ora: "16:00", fine: "17:30" },
+      colori: { fondo: "acido", dom: "viola", risp: "viola", verbo: "viola", big: "carta" } },
+
+    // domanda, testo e riga dal testo di Pietro «E se trovassi un tempo per te?» (11 nov); il dato del questionario è tolto: è un fatto privato
+    { id: "teatro-adulti", nome: "Teatro adulti", con: "Pietro Cucuzza e Salvo Valentino", nuovo: false,
+      verbo: "recito", domanda: "E se trovassi un tempo per te?",
+      eta: "Dai 18 anni", quando: "Una sera a settimana, giovedì o venerdì, 19:30-21:30", incontri: "20 incontri e lo spettacolo finale", quota: 300,
+      testo: "Una sera a settimana per staccare dalla giornata. Ti basta la curiosità: si parte da giochi e improvvisazioni, e da quello che porta ognuno nasce uno spettacolo originale.",
+      chi: [BIO.pietro, BIO.salvo],
+      riga: "Dai 18 anni: un tempo per te, fuori dai ruoli di ogni giorno",
+      // video di Pietro v1 (10 nov): 540x960, 60 fps, 46 s, 4,9 MB; b-roll in pellicola, Hopopono; poster N2, sorriso preso fra due tentativi
+      video: "video/teatro-adulti-v1.mp4", poster: "img/teatro-adulti-poster.jpg",
+      openday: { giorno: "sab", ora: "20:00", fine: "21:30" },
+      colori: { fondo: "ink", dom: "carta", risp: "acido", verbo: "rosa" } },
+
+    // Salvo con Pietro (11 nov); domanda, testo e riga dal testo di Pietro sul Pickwick
+    { id: "pickwick", nome: "Circolo Pickwick", con: "Salvo Valentino e Pietro Cucuzza", nuovo: false,
+      // video di Pietro e Salvo v1 (12 nov, ok di Pietro): 540x960, 60 fps, 41 s, 5 MB; b-roll Kling in pellicola, Desplat;
+      // poster P1 (fine della take 1, teste vicine). Nel video ci sono tutti e due: l'etichetta lo dice (campo guarda)
+      video: "video/pickwick-v1.mp4", poster: "img/pickwick-poster.jpg", guarda: "Salvo e Pietro",
+      verbo: "racconto", domanda: "L'ultima volta che ha ascoltato una storia senza schermi?",
+      eta: "6-10 anni", quando: "Una domenica al mese, 16:30-18:30", incontri: "10 incontri con la restituzione finale", quota: 180,
+      testo: "Andersen, Oscar Wilde, Lewis Carroll, i Grimm. Si gioca con le parole e col corpo, si disegna, poi le luci si abbassano e due voci danno vita ai personaggi.",
+      chi: [BIO.salvo, BIO.pietro],
+      riga: "6-10 anni: storie ad alta voce sotto una coperta, senza schermi",
+      openday: { giorno: "dom", ora: "16:00", fine: "17:30" },
+      colori: { fondo: "blu", dom: "carta", risp: "acido", verbo: "acido" } }
+  ]
+};
+/* ═════════════════════════════════════════════════════════════ */
+
+(function () {
+  var q = new URLSearchParams(location.search);
+  // ?oggi=2026-11-30 serve solo a provare la pagina come sarà in un altro giorno
+  var oggi = q.get("oggi") ? new Date(q.get("oggi") + "T12:00") : new Date();
+  var dopoOpenDay = oggi >= new Date(CONFIG.fineOpenDay + "T00:00");
+  var conSconto = oggi < new Date(CONFIG.fineSconto + "T00:00");
+  // ?da=carosello o ?da=immagine sui link degli annunci: il messaggio dice che la persona arriva da lì.
+  // ?da=salvo è il link del broadcast di Salvo: niente annuncio. Dal 12 nov (Pietro) apre la chat della compagnia,
+  // così risponde sempre Pietro, e il messaggio comincia con «Mi manda Salvo» per la Fonte su Notion
+  var da = q.get("da") || "";
+  var daSalvo = da === "salvo";
+  var daAnnuncio = !!da && !daSalvo;
+  var numero = CONFIG.numero;
+  var perId = {};
+  CONFIG.corsi.forEach(function (c) { perId[c.id] = c; });
+  perId["cartapesta-cucito"] = perId["cartapesta"];
+  var corso = perId[q.get("corso")] || null;
+  var scelte = {};
+  if (corso) scelte[corso.id] = true;
+  if (conSconto) document.body.classList.add("con-sconto");
+
+  var giorniOrdine = Object.keys(CONFIG.giorni);
+  function ordine(c) { return giorniOrdine.indexOf(c.openday.giorno) * 10000 + (parseInt(c.openday.ora.replace(":", ""), 10) || 0); }
+  var inOrdine = CONFIG.corsi.slice().sort(function (a, b) { return ordine(a) - ordine(b); });
+  function scelti() { return inOrdine.filter(function (c) { return scelte[c.id]; }); }
+  function daDefinire(c) { return c.openday.giorno === "da"; }
+  function quandoProva(c) { return CONFIG.giorni[c.openday.giorno].corto + " alle " + c.openday.ora; }
+  // «16:00-17:30» (con il trattino, così orari() lo tiene insieme)
+  function fascia(c) { return c.openday.ora + (c.openday.fine ? "-" + c.openday.fine : ""); }
+  function colore(nome) { return "var(--" + nome + ")"; }
+  // "19:30-21:30" diventa "19:30–21:30" e non va a capo nel mezzo
+  function orari(t) { return t.replace(/(\d{1,2}:\d{2})-(\d{1,2}:\d{2})/g, '<span class="nb">$1–$2</span>'); }
+  function stileCorso(c) {
+    return "--fondo:" + colore(c.colori.fondo) + ";--dom:" + colore(c.colori.dom) + ";--risp:" + colore(c.colori.risp) + ";--verbo:" + colore(c.colori.verbo) + ";--big:" + colore(c.colori.big || "acido");
+  }
+  var ICO = '<svg class="ico"><use href="#ico-wa"/></svg>';
+
+  /* ─── il messaggio WhatsApp: è già la prenotazione, e finisce col nome da completare ─── */
+  function messaggio(lista) {
+    var ciao = "Ciao!" + (daSalvo ? " Mi manda Salvo." : "") + (daAnnuncio ? " Ho visto l'annuncio." : "");
+    if (!lista.length) return ciao + " Mi aiutate a scegliere il laboratorio?";
+    if (dopoOpenDay) {
+      if (lista.length === 1) return ciao + " Vorrei provare gratis " + lista[0].nome + " nella prima settimana dei corsi. Mi chiamo ";
+      return ciao + " Vorrei provare gratis nella prima settimana dei corsi:\n" +
+        lista.map(function (c) { return "- " + c.nome; }).join("\n") + "\nMi chiamo ";
+    }
+    if (lista.length === 1) return ciao + " Vorrei prenotare la prova gratuita di " + lista[0].nome + " all'Open Day" + (daDefinire(lista[0]) ? ". Che giorno è?" : " di " + quandoProva(lista[0]) + ".") + " Mi chiamo ";
+    return ciao + " Vorrei prenotare le prove gratuite all'Open Day:\n" +
+      lista.map(function (c) { return "- " + c.nome + (daDefinire(c) ? " (che giorno è?)" : ", " + quandoProva(c)); }).join("\n") + "\nMi chiamo ";
+  }
+  function link(lista) { return "https://wa.me/" + numero + "?text=" + encodeURIComponent(messaggio(lista)); }
+
+  /* ─── una riga da spuntare ─── */
+  function riga(c, testo) {
+    return '<label class="prova" data-riga="' + c.id + '"><input type="checkbox" data-prova="' + c.id + '"><span class="spunta"></span>' + testo + '</label>';
+  }
+  function rigaProgramma(c) {
+    var ora = dopoOpenDay ? "" : '<span class="ora">' + (daDefinire(c) ? "—" : c.openday.ora) + '</span>';
+    var sotto = dopoOpenDay ? orari(c.quando) : (c.riga || "");
+    return riga(c, ora + '<span class="cosa"><b>' + c.nome + '</b>' + (c.novita ? '<i class="nuovo">Novità</i>' : '') +
+      (sotto ? '<small>' + sotto + '</small>' : '') + '</span>');
+  }
+  function rigaScheda(c) {
+    var t = dopoOpenDay ? "Prova gratis nella prima settimana dei corsi" : (daDefinire(c) ? "Prova gratis all'Open Day: giorno da definire" : "Prova gratis: " + CONFIG.giorni[c.openday.giorno].corto + ", " + orari(fascia(c)));
+    return riga(c, '<span class="cosa"><b>' + t + '</b></span>');
+  }
+  function video(c) {
+    var nome = c.guarda || c.con.split(" e ")[0].split(" ")[0];   // guarda: chi c'è nel video, se non è solo il primo nome
+    if (c.video) return '<button type="button" class="video916 con-video" data-video="' + c.id + '" style="background-image:url(' + c.poster + ')" aria-label="Guarda il video di ' + nome + '"><span><i></i>Guarda ' + nome + '</span></button>';
+    // senza video niente riquadro (11 nov)
+    return '';
+  }
+  var testata = '<div class="col testata"><p><span class="tipo">Laboratori teatrali e creativi</span> a&nbsp;San&nbsp;Giovanni&nbsp;La&nbsp;Punta<small>Compagnia dei Giovani, qui dal 2006</small></p><img src="img/logo-cdg.png" alt="Compagnia dei Giovani" width="40" height="40"></div>';
+
+  /* ─── la prima schermata ─── */
+  var hero = document.getElementById("hero");
+  if (corso) {
+    var c = corso;
+    hero.className = "hero-corso";
+    hero.setAttribute("style", stileCorso(c));
+    var stessoGiorno = dopoOpenDay ? [] : inOrdine.filter(function (x) { return x.id !== c.id && x.openday.giorno === c.openday.giorno; });
+    hero.innerHTML = testata +
+      '<div class="col">' +
+        (c.domanda ? '<h1>' + c.domanda + '</h1>' : '<h1 class="h1-verbo">' + c.verbo + '</h1>') +
+        (c.risposta ? '<p class="risposta">' + c.risposta + '</p>' : '') +
+        '<div class="affiancati">' +
+          '<div class="biglietto"><b>' + c.nome.replace("/", "/<wbr>") + '</b>' + (c.con ? '<span class="con">con ' + c.con + '</span>' : '') + '<hr>' +
+            '<ul><li>' + c.eta + '</li><li>' + orari(c.quando) + '</li><li>Da dicembre, ' + c.incontri + '</li>' +
+            '<li>' + c.quota + ' € in due rate' + (conSconto ? ', <span class="sconto">−10% entro l\'1 dicembre</span>' : '') + '</li></ul></div>' +
+          (c.con ? video(c) : '') +
+        '</div>' +
+        '<div class="pannello">' +
+          '<p class="offerta">' + (dopoOpenDay ? "Prova gratis nella prima settimana dei corsi" : "Prova gratis all'Open Day") + '</p>' +
+          '<p class="regola">' + CONFIG.regola + '.</p>' +
+          riga(c, '<span class="cosa"><b>' + (dopoOpenDay ? c.nome : CONFIG.giorni[c.openday.giorno].nome + ", " + orari(fascia(c))) + '</b><small>' +
+            (dopoOpenDay ? "a dicembre, al Casale" : c.nome + ", al Casale") + '</small></span>') +
+          '<a class="btn-wa js-prenota" target="_blank" rel="noopener"></a>' +
+          (stessoGiorno.length ? '<p class="anche">Lo stesso giorno puoi provare anche:</p>' + stessoGiorno.map(rigaProgramma).join("") : '') +
+        '</div>' +
+      '</div>';
+  } else {
+    // niente verbi qui (Pietro, 5 nov): la prima cosa da toccare sono le prove. Il biglietto, se lo tocchi, porta alle prove
+    hero.className = "hero-tutti";
+    hero.innerHTML = testata +
+      '<div class="cast"><img src="img/cast.jpg" alt="Gli attori del laboratorio adulti agli applausi di Marcovaldo" width="900" height="439" fetchpriority="high">' +
+        '<a class="biglietto js-alle-prove" href="#programma">' + (dopoOpenDay
+          ? '<b>Prova gratis nella prima settimana</b><span>I corsi partono in questi giorni</span>'
+          : '<b>Prova gratis all\'Open Day</b><span>Dal 26 al 30 novembre</span>') +
+        '<small>Il Casale, San Giovanni La Punta</small></a></div>';
+
+    var prog = document.getElementById("programma");
+    prog.classList.remove("nascosto");
+    var gruppi = dopoOpenDay
+      ? '<div class="giorno">' + inOrdine.map(rigaProgramma).join("") + '</div>'
+      : giorniOrdine.map(function (g) {
+          var delGiorno = inOrdine.filter(function (x) { return x.openday.giorno === g; });
+          return '<div class="giorno"><h3>' + CONFIG.giorni[g].nome + '</h3>' + delGiorno.map(rigaProgramma).join("") + '</div>';
+        }).join("");
+    document.getElementById("programma-dentro").innerHTML =
+      // il titolo è la frase della soglia (grilling del 10 nov); sotto, com'è la prova e cosa si tocca
+      '<h2>' + CONFIG.regola + '</h2>' +
+      '<p class="guida">' + (dopoOpenDay ? "La prima lezione la provi gratis." : "La prova è gratis e dura 1h30.") + ' Spunta quelle che vuoi, anche più di una.</p>' +
+      gruppi +
+      '<a class="btn-wa js-prenota" target="_blank" rel="noopener"></a>' +
+      '<p class="firma">' + 'Ti rispondiamo noi, <b>Pietro e Salvo</b>.' + (conSconto ? ' Entro l\'1 dicembre l\'iscrizione ha il 10% di sconto.' : '') + '</p>';
+  }
+
+  /* ─── le schede di tutti i laboratori: prima il corso dell'annuncio, poi gli altri ─── */
+  var schede = CONFIG.corsi.slice();
+  if (corso) schede = [corso].concat(schede.filter(function (x) { return x.id !== corso.id; }));
+  document.getElementById("schede").innerHTML = schede.map(function (c) {
+    return '<article class="corso" id="scheda-' + c.id + '" style="' + stileCorso(c) + ';--fondo-video:' + colore(c.colori.fondo) + '">' +
+      '<div class="corso__testa"><div class="col">' + (c.domanda ? '<p>' + c.domanda + '</p>' : '') + '<b>' + c.verbo + '</b></div></div>' +
+      '<div class="corso__corpo col">' +
+        '<div class="corso__nome">' + (c.con ? video(c) : '') +
+          '<div><h3>' + c.nome.replace("/", "/<wbr>") + (c.novita ? ' <i class="nuovo">Novità</i>' : '') + '</h3>' + (c.con ? '<p class="con">con ' + c.con + '</p>' : '') +
+            '<dl><dt>Per chi</dt><dd>' + c.eta + '</dd><dt>Quando</dt><dd>' + orari(c.quando) + '</dd><dt>Da dicembre</dt><dd>' + c.incontri + '</dd>' +
+            '<dt>Quota</dt><dd>' + c.quota + ' € in due rate</dd></dl></div>' +
+        '</div>' +
+        '<p class="corso__testo">' + c.testo + '</p>' +
+        // chi: una bio, o una lista quando gli insegnanti sono due
+        [].concat(c.chi || []).map(function (t) { return '<p class="corso__chi">' + t + '</p>'; }).join("") +
+        rigaScheda(c) +
+      '</div></article>';
+  }).join("");
+
+  /* ─── spunte sincronizzate e pulsanti ─── */
+  var barra = document.getElementById("barra");
+  var barraBtn = document.getElementById("barra-btn");
+  function aggiorna() {
+    var lista = scelti();
+    document.querySelectorAll("input[data-prova]").forEach(function (i) {
+      i.checked = !!scelte[i.getAttribute("data-prova")];
+      i.closest(".prova").classList.toggle("on", i.checked);
+    });
+    document.querySelectorAll(".js-prenota").forEach(function (a) {
+      if (lista.length) {
+        a.classList.remove("vuoto");
+        a.href = link(lista);
+        a.innerHTML = ICO + '<span>' + (lista.length === 1 ? "Prenota la prova gratuita" : "Prenota le " + lista.length + " prove gratuite") + '</span>';
+      } else {
+        a.classList.add("vuoto");
+        a.href = "#programma";
+        a.innerHTML = '<span>Spunta almeno una prova</span>';
+      }
+    });
+    barraBtn.href = link(lista);
+    barraBtn.innerHTML = ICO + '<span>' + (lista.length
+      ? (lista.length === 1 ? "Prenota la prova di " + lista[0].nome : "Prenota le " + lista.length + " prove scelte")
+      : "Scrivici su WhatsApp") + '</span>';
+  }
+  document.addEventListener("change", function (e) {
+    var id = e.target.getAttribute && e.target.getAttribute("data-prova");
+    if (!id) return;
+    if (e.target.checked) scelte[id] = true; else delete scelte[id];
+    aggiorna();
+  });
+
+  /* ─── evento per Meta: Contact solo se c'è almeno uno dei quattro corsi nuovi ─── */
+  function traccia(lista) {
+    var nomi = lista.map(function (c) { return c.nome; }).join(", ");
+    if (window.clarity) clarity("event", lista.length ? "prenota" : "aiuto");
+    if (!window.fbq) return;
+    if (!lista.length) fbq("trackCustom", "ContattoAiuto");
+    else if (lista.some(function (c) { return c.nuovo; })) fbq("track", "Contact", { content_name: nomi });
+    else fbq("trackCustom", "ContattoTeatroPickwick", { content_name: nomi });
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest(".js-prenota, #barra-btn, .js-alle-prove");
+    if (!a) return;
+    if (a.classList.contains("vuoto") || a.classList.contains("js-alle-prove")) {
+      e.preventDefault();
+      var primo = document.querySelector("#programma .prova") || document.querySelector(".prova");
+      primo.scrollIntoView({ behavior: "smooth", block: "center" });
+      primo.classList.add("lampeggia");
+      setTimeout(function () { primo.classList.remove("lampeggia"); }, 1500);
+      return;
+    }
+    traccia(scelti());
+  });
+
+  /* la barra in basso compare solo quando il pulsante della prima schermata non si vede */
+  var principali = document.querySelectorAll(".js-prenota");
+  if ("IntersectionObserver" in window && principali.length) {
+    var visibili = new Set();
+    var io = new IntersectionObserver(function (voci) {
+      voci.forEach(function (v) { if (v.isIntersecting) visibili.add(v.target); else visibili.delete(v.target); });
+      barra.classList.toggle("via", visibili.size > 0);
+    });
+    principali.forEach(function (p) { io.observe(p); });
+  } else {
+    barra.classList.remove("via");
+  }
+  /* il video dell'insegnante a schermo intero, e sotto il pulsante per prenotare la prova di quel corso */
+  var schermo = document.getElementById("schermo");
+  var schermoVideo = schermo.querySelector("video");
+  var schermoBtn = schermo.querySelector(".btn-wa");
+  var corsoVideo = null;
+  function chiudiVideo() { schermoVideo.pause(); schermo.hidden = true; document.body.style.overflow = ""; }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("[data-video]");
+    if (!b) return;
+    corsoVideo = perId[b.getAttribute("data-video")];
+    schermoVideo.src = corsoVideo.video;
+    schermoVideo.poster = corsoVideo.poster;
+    var lista = scelti().filter(function (x) { return x.id !== corsoVideo.id; }).concat([corsoVideo]);
+    schermoBtn.href = link(lista);
+    schermoBtn.innerHTML = ICO + '<span>Prenota la prova di ' + corsoVideo.nome + '</span>';
+    schermo.hidden = false;
+    document.body.style.overflow = "hidden";
+    schermoVideo.play().catch(function () {});
+    if (window.clarity) clarity("event", "video-" + corsoVideo.id);
+  });
+  schermo.querySelector(".chiudi").addEventListener("click", chiudiVideo);
+  schermoVideo.addEventListener("ended", function () { schermoBtn.classList.add("lampeggia"); });
+  schermoBtn.addEventListener("click", function () {
+    scelte[corsoVideo.id] = true;
+    aggiorna();
+    traccia(scelti());
+    setTimeout(chiudiVideo, 300);
+  });
+
+  if (window.clarity && corso) clarity("set", "corso", corso.id);
+  if (window.clarity && da) clarity("set", "da", da);
+
+  aggiorna();
+})();
+</script>
+
+</body>
+</html>
