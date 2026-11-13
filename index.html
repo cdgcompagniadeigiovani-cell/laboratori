@@ -693,7 +693,26 @@ var CONFIG = {
       return;
     }
     traccia(scelti());
+    apriApp(e, a.href);
   });
+
+  /* ─── nel browser interno di Facebook e Instagram wa.me si ferma sulla pagina bianca «apri l'app»:
+     lì apriamo direttamente l'app di WhatsApp. Su Android, se l'app non si apre, dopo 1,8 s si torna a wa.me ─── */
+  var ua = navigator.userAgent;
+  var inApp = /FBAN|FBAV|FB_IAB|Instagram/i.test(ua);
+  var android = /Android/i.test(ua), ios = /iPhone|iPad|iPod/i.test(ua);
+  function apriApp(e, href) {
+    var m = href && href.match(/^https:\/\/wa\.me\/(\d+)(?:\?text=(.*))?$/);
+    if (!inApp || !(android || ios) || !m) return;
+    e.preventDefault();
+    var uscito = false;
+    function via() { uscito = true; }
+    document.addEventListener("visibilitychange", via, { once: true });
+    window.addEventListener("pagehide", via, { once: true });
+    window.addEventListener("blur", via, { once: true });
+    location.href = "whatsapp://send?phone=" + m[1] + (m[2] ? "&text=" + m[2] : "");
+    if (android) setTimeout(function () { if (!uscito && !document.hidden) location.href = href; }, 1800);
+  }
 
   /* la barra in basso compare solo quando il pulsante della prima schermata non si vede */
   var principali = document.querySelectorAll(".js-prenota");
