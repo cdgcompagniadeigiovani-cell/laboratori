@@ -436,7 +436,7 @@ var CONFIG = {
 
     // solo bambini e ragazzi (Pietro, 5 nov): niente cucito e niente genitori. Domanda per i genitori sull'incanalare la creatività
     // «Novità» rimessa l'11 nov (Pietro). Una domenica al mese, diversa da quella del Pickwick (Pietro, 11 nov)
-    { id: "cartapesta", nome: "Cartapesta", con: "Serena Siclari", nuovo: true, novita: true,
+    { id: "cartapesta", minori: true, nome: "Cartapesta", con: "Serena Siclari", nuovo: true, novita: true,
       verbo: "creo", domanda: "Ha mille idee e non ne finisce nessuna?", risposta: "Qui le porta fino in fondo: diventano oggetti di scena, dagli 8 anni",
       eta: "Bambini e ragazzi, dagli 8 anni", quando: "Una domenica al mese, 16:30-18:30", incontri: "10 incontri", quota: 215,
       testo: "Giornali, colla e colori: dieci incontri per costruire oggetti di scena veri, che poi salgono sul palco del Circolo Pickwick.",
@@ -448,7 +448,7 @@ var CONFIG = {
       openday: { giorno: "dom", ora: "18:00", fine: "19:30" },
       colori: { fondo: "rosa", dom: "viola", risp: "ink", verbo: "viola" } },
 
-    { id: "teatro-ragazzi", nome: "Teatro ragazzi", con: "Pietro Cucuzza e Salvo Valentino", nuovo: false,
+    { id: "teatro-ragazzi", minori: true, nome: "Teatro ragazzi", con: "Pietro Cucuzza e Salvo Valentino", nuovo: false,
       // domanda al genitore: il figlio che esce dal guscio (grilling del 10 nov), con le parole del questionario dei ragazzi di Studio 54
       verbo: "recito", domanda: "A casa parla, ma in gruppo sparisce?",
       eta: "11-17 anni", quando: "Il sabato, 16:00-18:30", incontri: "20 incontri e lo spettacolo finale", quota: 300,
@@ -474,7 +474,7 @@ var CONFIG = {
       colori: { fondo: "ink", dom: "carta", risp: "acido", verbo: "rosa" } },
 
     // Salvo con Pietro (11 nov); domanda, testo e riga dal testo di Pietro sul Pickwick
-    { id: "pickwick", nome: "Circolo Pickwick", con: "Salvo Valentino e Pietro Cucuzza", nuovo: false,
+    { id: "pickwick", minori: true, nome: "Circolo Pickwick", con: "Salvo Valentino e Pietro Cucuzza", nuovo: false,
       // video di Pietro e Salvo v1 (12 nov, ok di Pietro): 540x960, 60 fps, 41 s, 5 MB; b-roll Kling in pellicola, Desplat;
       // poster P1 (fine della take 1, teste vicine). Nel video ci sono tutti e due: l'etichetta lo dice (campo guarda)
       video: "video/pickwick-v1.mp4", poster: "img/pickwick-poster.jpg", guarda: "Salvo e Pietro",
@@ -527,17 +527,22 @@ var CONFIG = {
   var ICO = '<svg class="ico"><use href="#ico-wa"/></svg>';
 
   /* ─── il messaggio WhatsApp: è già la prenotazione, e finisce col nome da completare ─── */
+  // corsi per bambini e ragazzi (Pietro, 13 nov): scrive di solito il genitore, quindi il messaggio chiede subito
+  // nome ed età di chi fa la prova, come le conferme /ok di quei corsi. Con un corso per adulti nella lista resta «Mi chiamo»
+  function chiusura(lista) {
+    return lista.every(function (c) { return c.minori; }) ? "Nome ed età di chi fa la prova: " : "Mi chiamo ";
+  }
   function messaggio(lista) {
     var ciao = "Ciao!" + (daSalvo ? " Mi manda Salvo." : "") + (daAnnuncio ? " Ho visto l'annuncio." : "");
     if (!lista.length) return ciao + " Mi aiutate a scegliere il laboratorio?";
     if (dopoOpenDay) {
-      if (lista.length === 1) return ciao + " Vorrei provare gratis " + lista[0].nome + " nella prima settimana dei corsi. Mi chiamo ";
+      if (lista.length === 1) return ciao + " Vorrei provare gratis " + lista[0].nome + " nella prima settimana dei corsi. " + chiusura(lista);
       return ciao + " Vorrei provare gratis nella prima settimana dei corsi:\n" +
-        lista.map(function (c) { return "- " + c.nome; }).join("\n") + "\nMi chiamo ";
+        lista.map(function (c) { return "- " + c.nome; }).join("\n") + "\n" + chiusura(lista);
     }
-    if (lista.length === 1) return ciao + " Vorrei prenotare la prova gratuita di " + lista[0].nome + " all'Open Day" + (daDefinire(lista[0]) ? ". Che giorno è?" : " di " + quandoProva(lista[0]) + ".") + " Mi chiamo ";
+    if (lista.length === 1) return ciao + " Vorrei prenotare la prova gratuita di " + lista[0].nome + " all'Open Day" + (daDefinire(lista[0]) ? ". Che giorno è?" : " di " + quandoProva(lista[0]) + ".") + " " + chiusura(lista);
     return ciao + " Vorrei prenotare le prove gratuite all'Open Day:\n" +
-      lista.map(function (c) { return "- " + c.nome + (daDefinire(c) ? " (che giorno è?)" : ", " + quandoProva(c)); }).join("\n") + "\nMi chiamo ";
+      lista.map(function (c) { return "- " + c.nome + (daDefinire(c) ? " (che giorno è?)" : ", " + quandoProva(c)); }).join("\n") + "\n" + chiusura(lista);
   }
   function link(lista) { return "https://wa.me/" + numero + "?text=" + encodeURIComponent(messaggio(lista)); }
 
@@ -716,7 +721,8 @@ var CONFIG = {
     schermoVideo.poster = corsoVideo.poster;
     var lista = scelti().filter(function (x) { return x.id !== corsoVideo.id; }).concat([corsoVideo]);
     schermoBtn.href = link(lista);
-    schermoBtn.innerHTML = ICO + '<span>Prenota la prova di ' + corsoVideo.nome + '</span>';
+    // con altre prove già spuntate il messaggio le prenota tutte, e il pulsante lo dice (Pietro, 13 nov)
+    schermoBtn.innerHTML = ICO + '<span>' + (lista.length > 1 ? "Prenota le " + lista.length + " prove scelte" : "Prenota la prova di " + corsoVideo.nome) + '</span>';
     schermo.hidden = false;
     document.body.style.overflow = "hidden";
     schermoVideo.play().catch(function () {});
