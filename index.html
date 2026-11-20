@@ -394,7 +394,16 @@ var CONFIG = {
   },
   // riga: il sottotitolo nel programma da spuntare, con l'età davanti per bambini e ragazzi. Dal 10 nov il gesto della prova;
   // dall'11 nov teatro e Pickwick dicono il punto dolente preso dai testi di Pietro, Koro Pop la frase di Pietro
-  // nuovo: true = uno dei quattro corsi della campagna (manda l'evento Contact); novita: true = etichetta «Novità»
+  // nuovo: true = corso spinto dagli annunci (manda l'evento Contact): i quattro corsi della campagna e, dal 20 nov,
+  // il Circolo Pickwick col gruppo «Domenica dei bambini» (Pietro). novita: true = etichetta «Novità»
+  // una giornata dell'Open Day come prima schermata, col link ?giorno=dom (gruppo «Domenica dei bambini», 20 nov):
+  // titolo uguale all'annuncio, le prove di quel giorno da spuntare (nessuna già spuntata), i video, colori di un corso
+  giornate: {
+    dom: { titolo: "Un pomeriggio<br>senza schermi", colori: "pickwick",
+      sotto: "Fiabe alle 16, cartapesta alle 18: due prove gratis per bambini, al Casale.",
+      sottoDopo: "Fiabe e cartapesta, una domenica al mese al Casale. La prima lezione è gratis.",
+      guida: "Fra gli 8 e i 10 anni si possono fare tutte e due." }
+  },
   corsi: [
     { id: "coro-pop", nome: "Koro Pop", con: "Susanna Recupero", nuovo: true, novita: true,
       verbo: "canto", domanda: "Canti solo in macchina?", risposta: "Novità a Catania: un coro pop senza audizioni",
@@ -474,7 +483,7 @@ var CONFIG = {
       colori: { fondo: "ink", dom: "carta", risp: "acido", verbo: "rosa" } },
 
     // Salvo con Pietro (11 nov); domanda, testo e riga dal testo di Pietro sul Pickwick
-    { id: "pickwick", minori: true, nome: "Circolo Pickwick", con: "Salvo Valentino e Pietro Cucuzza", nuovo: false,
+    { id: "pickwick", minori: true, nome: "Circolo Pickwick", con: "Salvo Valentino e Pietro Cucuzza", nuovo: true,
       // video di Pietro e Salvo v1 (12 nov, ok di Pietro): 540x960, 60 fps, 41 s, 5 MB; b-roll Kling in pellicola, Desplat;
       // poster P1 (fine della take 1, teste vicine). Nel video ci sono tutti e due: l'etichetta lo dice (campo guarda)
       video: "video/pickwick-v1.mp4", poster: "img/pickwick-poster.jpg", guarda: "Salvo e Pietro",
@@ -506,6 +515,8 @@ var CONFIG = {
   CONFIG.corsi.forEach(function (c) { perId[c.id] = c; });
   perId["cartapesta-cucito"] = perId["cartapesta"];
   var corso = perId[q.get("corso")] || null;
+  // ?giorno=dom: la giornata dell'Open Day come prima schermata (vale solo senza ?corso=)
+  var giornata = !corso && CONFIG.giornate[q.get("giorno")] ? q.get("giorno") : null;
   var scelte = {};
   if (corso) scelte[corso.id] = true;
   if (conSconto) document.body.classList.add("con-sconto");
@@ -594,6 +605,25 @@ var CONFIG = {
           (stessoGiorno.length ? '<p class="anche">Lo stesso giorno puoi provare anche:</p>' + stessoGiorno.map(rigaProgramma).join("") : '') +
         '</div>' +
       '</div>';
+  } else if (giornata) {
+    // la domenica dei bambini (20 nov): continua l'annuncio con lo stesso titolo; le prove si spuntano qui, nessuna già spuntata
+    var gd = CONFIG.giornate[giornata];
+    var delGiorno = inOrdine.filter(function (x) { return x.openday.giorno === giornata; });
+    hero.className = "hero-corso";
+    hero.setAttribute("style", stileCorso(perId[gd.colori]));
+    // dall'alto: titolo, prove da spuntare e pulsante nel primo schermo; i video sotto, per non spingerli sotto la piega
+    hero.innerHTML = testata +
+      '<div class="col">' +
+        '<h1>' + gd.titolo + '</h1>' +
+        '<p class="risposta">' + (dopoOpenDay ? gd.sottoDopo : gd.sotto) + '</p>' +
+        '<div class="pannello">' +
+          '<p class="offerta">' + (dopoOpenDay ? "Prova gratis nella prima settimana dei corsi" : "Prova gratis " + CONFIG.giorni[giornata].corto) + '</p>' +
+          delGiorno.map(rigaProgramma).join("") +
+          '<a class="btn-wa js-prenota" target="_blank" rel="noopener"></a>' +
+          '<p class="firma">' + gd.guida + ' Ti rispondiamo noi, <b>Pietro e Salvo</b>.</p>' +
+        '</div>' +
+        '<div class="affiancati">' + delGiorno.map(function (x) { return x.con ? video(x) : ''; }).join("") + '</div>' +
+      '</div>';
   } else {
     // niente verbi qui (Pietro, 5 nov): la prima cosa da toccare sono le prove. Il biglietto, se lo tocchi, porta alle prove
     hero.className = "hero-tutti";
@@ -624,6 +654,8 @@ var CONFIG = {
   /* ─── le schede di tutti i laboratori: prima il corso dell'annuncio, poi gli altri ─── */
   var schede = CONFIG.corsi.slice();
   if (corso) schede = [corso].concat(schede.filter(function (x) { return x.id !== corso.id; }));
+  if (giornata) schede = schede.filter(function (x) { return x.openday.giorno === giornata; })
+    .concat(schede.filter(function (x) { return x.openday.giorno !== giornata; }));
   document.getElementById("schede").innerHTML = schede.map(function (c) {
     return '<article class="corso" id="scheda-' + c.id + '" style="' + stileCorso(c) + ';--fondo-video:' + colore(c.colori.fondo) + '">' +
       '<div class="corso__testa"><div class="col">' + (c.domanda ? '<p>' + c.domanda + '</p>' : '') + '<b>' + c.verbo + '</b></div></div>' +
@@ -757,6 +789,7 @@ var CONFIG = {
   });
 
   if (window.clarity && corso) clarity("set", "corso", corso.id);
+  if (window.clarity && giornata) clarity("set", "giorno", giornata);
   if (window.clarity && da) clarity("set", "da", da);
 
   aggiorna();
