@@ -122,8 +122,11 @@ a{color:inherit}
 .ora{flex:0 0 auto;font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;min-width:50px}
 .cosa{display:block;line-height:1.2;min-width:0}
 .cosa b{font-size:17.5px;font-weight:700}
-.cosa small{display:block;font-size:13px;color:rgba(10,26,79,.72);margin-top:2px}
-.nuovo{display:inline-block;font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--rosa);color:var(--ink);padding:2px 6px;border-radius:3px;vertical-align:3px;margin-left:4px}
+.cosa small{display:block;font-size:13px;line-height:1.32;color:rgba(10,26,79,.72);margin-top:2px}
+/* le prove già passate, in fondo al programma (28 nov) */
+.passate p{font-size:14.5px;line-height:1.35;margin:6px 0 2px;color:rgba(10,26,79,.8)}
+/* 11,5 px: sotto gli 11 l'etichetta non si legge bene sul telefono (critique del 28 nov) */
+.nuovo{display:inline-block;font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--rosa);color:var(--ink);padding:2px 6px;border-radius:3px;vertical-align:3px;margin-left:4px}
 
 /* ═══════════════ PULSANTI WHATSAPP ═══════════════ */
 .btn-wa{
@@ -202,6 +205,8 @@ a{color:inherit}
 .corso dt{font-size:13px;color:var(--viola);margin-top:9px}
 .corso dd{font-weight:600}
 .corso__testo{font-size:16px;margin-top:16px}
+/* niente parola sola sull'ultima riga dei paragrafi (critique del 28 nov) */
+.corso__testo,.corso__chi,.faq details p,.sezione .intro,.passate p{text-wrap:pretty}
 .corso__chi+.corso__chi{margin-top:8px}
 .corso__chi{font-size:14.5px;margin-top:12px;padding-left:12px;border-left:3px solid var(--fondo);color:rgba(10,26,79,.82)}
 .corso .prova{margin-top:16px}
@@ -213,7 +218,7 @@ a{color:inherit}
 .prezzo{border:2px solid rgba(246,244,239,.3);border-radius:8px;padding:14px 16px;display:flex;gap:14px;align-items:baseline}
 .prezzo .num{font-size:36px;font-weight:700;letter-spacing:-.03em;color:var(--acido);flex:0 0 auto;min-width:3.4ch}
 .prezzo p{font-size:15px;line-height:1.35}
-.prezzo p b{display:block;font-size:16px}
+.prezzo p b{display:block;font-size:16px;line-height:1.3}
 .quote .nota{font-size:15.5px;margin:18px 0 0 20px;max-width:48ch}
 .quote .nota li{margin-top:8px;padding-left:2px}
 .quote .nota li::marker{color:var(--acido)}
@@ -229,7 +234,7 @@ a{color:inherit}
 
 /* ═══════════════ DOMANDE FREQUENTI ═══════════════ */
 .faq details{border-bottom:2px solid rgba(10,26,79,.14);padding:15px 0}
-.faq summary{font-size:17.5px;font-weight:700;line-height:1.25;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px}
+.faq summary{font-size:17.5px;font-weight:700;line-height:1.3;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";font-size:26px;line-height:.8;color:var(--rosa);transition:transform .2s;flex:0 0 auto}
 .faq details[open] summary::after{transform:rotate(45deg)}
@@ -385,12 +390,12 @@ var CONFIG = {
   fineOpenDay: "2026-12-01",
   // il 10% di sconto vale per chi si iscrive entro l'1 dicembre (Pietro, 10 nov)
   fineSconto: "2026-12-02",
-  // Open Day dal 26 al 30 novembre (Pietro, 10 nov)
+  // Open Day dal 26 al 30 novembre (Pietro, 10 nov). data: dall'ora d'inizio la prova è passata e si prenota per dicembre (28 nov)
   giorni: {
-    gio: { nome: "Giovedì 26 novembre", corto: "giovedì 26 novembre" },
-    sab: { nome: "Sabato 28 novembre",  corto: "sabato 28 novembre" },
-    dom: { nome: "Domenica 29 novembre", corto: "domenica 29 novembre" },
-    lun: { nome: "Lunedì 30 novembre", corto: "lunedì 30 novembre" }
+    gio: { nome: "Giovedì 26 novembre", corto: "giovedì 26 novembre", data: "2026-11-26" },
+    sab: { nome: "Sabato 28 novembre",  corto: "sabato 28 novembre", data: "2026-11-28" },
+    dom: { nome: "Domenica 29 novembre", corto: "domenica 29 novembre", data: "2026-11-29" },
+    lun: { nome: "Lunedì 30 novembre", corto: "lunedì 30 novembre", data: "2026-11-30" }
   },
   // riga: il sottotitolo nel programma da spuntare, con l'età davanti per bambini e ragazzi. Dal 10 nov il gesto della prova;
   // dall'11 nov teatro e Pickwick dicono il punto dolente preso dai testi di Pietro, Koro Pop la frase di Pietro
@@ -500,8 +505,10 @@ var CONFIG = {
 
 (function () {
   var q = new URLSearchParams(location.search);
-  // ?oggi=2026-11-30 serve solo a provare la pagina come sarà in un altro giorno
-  var oggi = q.get("oggi") ? new Date(q.get("oggi") + "T12:00") : new Date();
+  // ?oggi=2026-11-30 serve solo a provare la pagina come sarà in un altro giorno (a mezzogiorno);
+  // ?oggi=2026-11-28T18:30 a un'ora precisa
+  var oggiQ = q.get("oggi");
+  var oggi = oggiQ ? new Date(oggiQ.indexOf("T") > 0 ? oggiQ : oggiQ + "T12:00") : new Date();
   var dopoOpenDay = oggi >= new Date(CONFIG.fineOpenDay + "T00:00");
   var conSconto = oggi < new Date(CONFIG.fineSconto + "T00:00");
   // ?da=carosello o ?da=immagine sui link degli annunci: il messaggio dice che la persona arriva da lì.
@@ -524,8 +531,16 @@ var CONFIG = {
   var giorniOrdine = Object.keys(CONFIG.giorni);
   function ordine(c) { return giorniOrdine.indexOf(c.openday.giorno) * 10000 + (parseInt(c.openday.ora.replace(":", ""), 10) || 0); }
   var inOrdine = CONFIG.corsi.slice().sort(function (a, b) { return ordine(a) - ordine(b); });
+  // lunedì 30 dopo l'inizio della Dizione è come dall'1 dicembre: tutte le prove sono a dicembre
+  if (inOrdine.every(passata)) dopoOpenDay = true;
   function scelti() { return inOrdine.filter(function (c) { return scelte[c.id]; }); }
   function daDefinire(c) { return c.openday.giorno === "da"; }
+  // la prova dell'Open Day è passata dalla sua ora d'inizio (28 nov, critique): da lì si prenota la prova della prima settimana dei corsi
+  function passata(c) {
+    if (dopoOpenDay) return true;
+    if (daDefinire(c)) return false;
+    return oggi >= new Date(CONFIG.giorni[c.openday.giorno].data + "T" + c.openday.ora);
+  }
   function quandoProva(c) { return CONFIG.giorni[c.openday.giorno].corto + " alle " + c.openday.ora; }
   // «16:00-17:30» (con il trattino, così orari() lo tiene insieme)
   function fascia(c) { return c.openday.ora + (c.openday.fine ? "-" + c.openday.fine : ""); }
@@ -546,11 +561,16 @@ var CONFIG = {
   function messaggio(lista) {
     var ciao = "Ciao!" + (daSalvo ? " Mi manda Salvo." : "") + (daAnnuncio ? " Ho visto l'annuncio." : "");
     if (!lista.length) return ciao + " Mi aiutate a scegliere il laboratorio?";
-    if (dopoOpenDay) {
+    var aDicembre = lista.filter(passata), allOpenDay = lista.filter(function (c) { return !passata(c); });
+    if (!allOpenDay.length) {
       if (lista.length === 1) return ciao + " Vorrei provare gratis " + lista[0].nome + " nella prima settimana dei corsi. " + chiusura(lista);
       return ciao + " Vorrei provare gratis nella prima settimana dei corsi:\n" +
         lista.map(function (c) { return "- " + c.nome; }).join("\n") + "\n" + chiusura(lista);
     }
+    // alcune prove all'Open Day e altre già passate, da fare a dicembre (28 nov)
+    if (aDicembre.length) return ciao + " Vorrei prenotare le prove gratuite:\n" +
+      allOpenDay.map(function (c) { return "- " + c.nome + ", all'Open Day di " + quandoProva(c); })
+        .concat(aDicembre.map(function (c) { return "- " + c.nome + ", nella prima settimana dei corsi"; })).join("\n") + "\n" + chiusura(lista);
     if (lista.length === 1) return ciao + " Vorrei prenotare la prova gratuita di " + lista[0].nome + " all'Open Day" + (daDefinire(lista[0]) ? ". Che giorno è?" : " di " + quandoProva(lista[0]) + ".") + " " + chiusura(lista);
     return ciao + " Vorrei prenotare le prove gratuite all'Open Day:\n" +
       lista.map(function (c) { return "- " + c.nome + (daDefinire(c) ? " (che giorno è?)" : ", " + quandoProva(c)); }).join("\n") + "\n" + chiusura(lista);
@@ -562,13 +582,13 @@ var CONFIG = {
     return '<label class="prova" data-riga="' + c.id + '"><input type="checkbox" data-prova="' + c.id + '"><span class="spunta"></span>' + testo + '</label>';
   }
   function rigaProgramma(c) {
-    var ora = dopoOpenDay ? "" : '<span class="ora">' + (daDefinire(c) ? "—" : c.openday.ora) + '</span>';
-    var sotto = dopoOpenDay ? orari(c.quando) : (c.riga || "");
+    var ora = passata(c) ? "" : '<span class="ora">' + (daDefinire(c) ? "—" : c.openday.ora) + '</span>';
+    var sotto = passata(c) ? orari(c.quando) : (c.riga || "");
     return riga(c, ora + '<span class="cosa"><b>' + c.nome + '</b>' + (c.novita ? '<i class="nuovo">Novità</i>' : '') +
       (sotto ? '<small>' + sotto + '</small>' : '') + '</span>');
   }
   function rigaScheda(c) {
-    var t = dopoOpenDay ? "Prova gratis nella prima settimana dei corsi" : (daDefinire(c) ? "Prova gratis all'Open Day: giorno da definire" : "Prova gratis: " + CONFIG.giorni[c.openday.giorno].corto + ", " + orari(fascia(c)));
+    var t = passata(c) ? "Prova gratis nella prima settimana dei corsi" : (daDefinire(c) ? "Prova gratis all'Open Day: giorno da definire" : "Prova gratis: " + CONFIG.giorni[c.openday.giorno].corto + ", " + orari(fascia(c)));
     return riga(c, '<span class="cosa"><b>' + t + '</b></span>');
   }
   function video(c) {
@@ -585,7 +605,8 @@ var CONFIG = {
     var c = corso;
     hero.className = "hero-corso";
     hero.setAttribute("style", stileCorso(c));
-    var stessoGiorno = dopoOpenDay ? [] : inOrdine.filter(function (x) { return x.id !== c.id && x.openday.giorno === c.openday.giorno; });
+    var cPassata = passata(c);
+    var stessoGiorno = cPassata ? [] : inOrdine.filter(function (x) { return x.id !== c.id && x.openday.giorno === c.openday.giorno && !passata(x); });
     hero.innerHTML = testata +
       '<div class="col">' +
         (c.domanda ? '<h1>' + c.domanda + '</h1>' : '<h1 class="h1-verbo">' + c.verbo + '</h1>') +
@@ -597,10 +618,10 @@ var CONFIG = {
           (c.con ? video(c) : '') +
         '</div>' +
         '<div class="pannello">' +
-          '<p class="offerta">' + (dopoOpenDay ? "Prova gratis nella prima settimana dei corsi" : "Prova gratis all'Open Day") + '</p>' +
+          '<p class="offerta">' + (cPassata ? "Prova gratis nella prima settimana dei corsi" : "Prova gratis all'Open Day") + '</p>' +
           '<p class="regola">' + CONFIG.regola + '.</p>' +
-          riga(c, '<span class="cosa"><b>' + (dopoOpenDay ? c.nome : CONFIG.giorni[c.openday.giorno].nome + ", " + orari(fascia(c))) + '</b><small>' +
-            (dopoOpenDay ? "a dicembre, al Casale" : c.nome + ", al Casale") + '</small></span>') +
+          riga(c, '<span class="cosa"><b>' + (cPassata ? c.nome : CONFIG.giorni[c.openday.giorno].nome + ", " + orari(fascia(c))) + '</b><small>' +
+            (cPassata ? "a dicembre, al Casale" : c.nome + ", al Casale") + '</small></span>') +
           '<a class="btn-wa js-prenota" target="_blank" rel="noopener"></a>' +
           (stessoGiorno.length ? '<p class="anche">Lo stesso giorno puoi provare anche:</p>' + stessoGiorno.map(rigaProgramma).join("") : '') +
         '</div>' +
@@ -609,16 +630,20 @@ var CONFIG = {
     // la domenica dei bambini (20 nov): continua l'annuncio con lo stesso titolo; le prove si spuntano qui, nessuna già spuntata
     var gd = CONFIG.giornate[giornata];
     var delGiorno = inOrdine.filter(function (x) { return x.openday.giorno === giornata; });
+    var giornataPassata = delGiorno.every(passata);
     hero.className = "hero-corso";
     hero.setAttribute("style", stileCorso(perId[gd.colori]));
     // dall'alto: titolo, prove da spuntare e pulsante nel primo schermo; i video sotto, per non spingerli sotto la piega
     hero.innerHTML = testata +
       '<div class="col">' +
         '<h1>' + gd.titolo + '</h1>' +
-        '<p class="risposta">' + (dopoOpenDay ? gd.sottoDopo : gd.sotto) + '</p>' +
+        '<p class="risposta">' + (giornataPassata ? gd.sottoDopo : gd.sotto) + '</p>' +
         '<div class="pannello">' +
-          '<p class="offerta">' + (dopoOpenDay ? "Prova gratis nella prima settimana dei corsi" : "Prova gratis " + CONFIG.giorni[giornata].corto) + '</p>' +
-          delGiorno.map(rigaProgramma).join("") +
+          '<p class="offerta">' + (giornataPassata ? "Prova gratis nella prima settimana dei corsi" : "Prova gratis " + CONFIG.giorni[giornata].corto) + '</p>' +
+          // a giornata in corso prima le prove che restano, poi quella già passata, da fare a dicembre (28 nov)
+          (giornataPassata ? delGiorno.map(rigaProgramma).join("")
+            : delGiorno.filter(function (x) { return !passata(x); }).map(rigaProgramma).join("") +
+              (delGiorno.some(passata) ? '<p class="anche">Già passata: la provi gratis a dicembre</p>' + delGiorno.filter(passata).map(rigaProgramma).join("") : '')) +
           '<a class="btn-wa js-prenota" target="_blank" rel="noopener"></a>' +
           '<p class="firma">' + gd.guida + ' Ti rispondiamo noi, <b>Pietro e Salvo</b>.</p>' +
         '</div>' +
@@ -636,12 +661,16 @@ var CONFIG = {
 
     var prog = document.getElementById("programma");
     prog.classList.remove("nascosto");
-    var gruppi = dopoOpenDay
+    // le prove già passate escono dai loro giorni e vanno in fondo, da prenotare per dicembre (28 nov, critique)
+    var passate = inOrdine.filter(passata);
+    var gruppi = passate.length === inOrdine.length
       ? '<div class="giorno">' + inOrdine.map(rigaProgramma).join("") + '</div>'
       : giorniOrdine.map(function (g) {
-          var delGiorno = inOrdine.filter(function (x) { return x.openday.giorno === g; });
-          return '<div class="giorno"><h3>' + CONFIG.giorni[g].nome + '</h3>' + delGiorno.map(rigaProgramma).join("") + '</div>';
-        }).join("");
+          var delGiorno = inOrdine.filter(function (x) { return x.openday.giorno === g && !passata(x); });
+          return delGiorno.length ? '<div class="giorno"><h3>' + CONFIG.giorni[g].nome + '</h3>' + delGiorno.map(rigaProgramma).join("") + '</div>' : '';
+        }).join("") +
+        (passate.length ? '<div class="giorno passate"><h3>Già passate all\'Open Day</h3>' +
+          '<p>Le provi gratis nella prima settimana dei corsi, a dicembre.</p>' + passate.map(rigaProgramma).join("") + '</div>' : '');
     document.getElementById("programma-dentro").innerHTML =
       // il titolo è la frase della soglia (grilling del 10 nov); sotto, com'è la prova e cosa si tocca
       '<h2>' + CONFIG.regola + '</h2>' +
@@ -656,6 +685,11 @@ var CONFIG = {
   if (corso) schede = [corso].concat(schede.filter(function (x) { return x.id !== corso.id; }));
   if (giornata) schede = schede.filter(function (x) { return x.openday.giorno === giornata; })
     .concat(schede.filter(function (x) { return x.openday.giorno !== giornata; }));
+  // ogni bio una volta sola, nella prima scheda in cui compare (28 nov, critique): nelle altre basta il nome sotto il corso
+  var bioViste = {};
+  function bioNuove(c) {
+    return [].concat(c.chi || []).filter(function (t) { var vista = bioViste[t]; bioViste[t] = true; return !vista; });
+  }
   document.getElementById("schede").innerHTML = schede.map(function (c) {
     return '<article class="corso" id="scheda-' + c.id + '" style="' + stileCorso(c) + ';--fondo-video:' + colore(c.colori.fondo) + '">' +
       '<div class="corso__testa"><div class="col">' + (c.domanda ? '<p>' + c.domanda + '</p>' : '') + '<b>' + c.verbo + '</b></div></div>' +
@@ -667,7 +701,7 @@ var CONFIG = {
         '</div>' +
         '<p class="corso__testo">' + c.testo + '</p>' +
         // chi: una bio, o una lista quando gli insegnanti sono due
-        [].concat(c.chi || []).map(function (t) { return '<p class="corso__chi">' + t + '</p>'; }).join("") +
+        bioNuove(c).map(function (t) { return '<p class="corso__chi">' + t + '</p>'; }).join("") +
         rigaScheda(c) +
       '</div></article>';
   }).join("");
@@ -696,6 +730,15 @@ var CONFIG = {
     barraBtn.innerHTML = ICO + '<span>' + (lista.length
       ? (lista.length === 1 ? "Prenota la prova di " + lista[0].nome : "Prenota le " + lista.length + " prove scelte")
       : "Scrivici su WhatsApp") + '</span>';
+    mostraBarra();
+  }
+  /* la barra in basso compare quando il pulsante della prima schermata non si vede. Senza prove spuntate resta via
+     anche mentre si vede il programma (28 nov, critique): lì l'azione è spuntare, e la richiesta d'aiuto non deve
+     essere il verde più forte né coprire una riga. Appena si spunta una prova compare col pulsante per prenotarla */
+  var pulsantiVisibili = new Set(), programmaVisibile = false, osserva = "IntersectionObserver" in window;
+  function mostraBarra() {
+    if (!osserva) { barra.classList.remove("via"); return; }
+    barra.classList.toggle("via", pulsantiVisibili.size > 0 || (!scelti().length && programmaVisibile));
   }
   document.addEventListener("change", function (e) {
     var id = e.target.getAttribute && e.target.getAttribute("data-prova");
@@ -746,17 +789,22 @@ var CONFIG = {
     if (android) setTimeout(function () { if (!uscito && !document.hidden) location.href = href; }, 1800);
   }
 
-  /* la barra in basso compare solo quando il pulsante della prima schermata non si vede */
+  /* la barra in basso: vedi mostraBarra() */
   var principali = document.querySelectorAll(".js-prenota");
-  if ("IntersectionObserver" in window && principali.length) {
-    var visibili = new Set();
+  var programma = document.getElementById("programma");
+  if (osserva && principali.length) {
     var io = new IntersectionObserver(function (voci) {
-      voci.forEach(function (v) { if (v.isIntersecting) visibili.add(v.target); else visibili.delete(v.target); });
-      barra.classList.toggle("via", visibili.size > 0);
+      voci.forEach(function (v) {
+        if (v.target === programma) programmaVisibile = v.isIntersecting;
+        else if (v.isIntersecting) pulsantiVisibili.add(v.target); else pulsantiVisibili.delete(v.target);
+      });
+      mostraBarra();
     });
     principali.forEach(function (p) { io.observe(p); });
+    if (!programma.classList.contains("nascosto")) io.observe(programma);
   } else {
-    barra.classList.remove("via");
+    osserva = false;
+    mostraBarra();
   }
   /* il video dell'insegnante a schermo intero, e sotto il pulsante per prenotare la prova di quel corso */
   var schermo = document.getElementById("schermo");
